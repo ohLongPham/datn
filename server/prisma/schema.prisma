@@ -17,3 +17,22 @@ model User {
   updatedAt DateTime @updatedAt
   username  String   @unique
 }
+
+model Part {
+  color       String?
+  createdAt   DateTime @default(now())
+  description String?
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  packet      Packet?  @relation(fields: [packetId], references: [id])
+  packetId    String?  @db.ObjectId
+  updatedAt   DateTime @updatedAt
+  weight      String?
+}
+
+model Packet {
+  createdAt DateTime @default(now())
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String?
+  parts     Part[]
+  updatedAt DateTime @updatedAt
+}
